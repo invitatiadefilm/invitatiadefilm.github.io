@@ -70,10 +70,6 @@ a { color: inherit; }
 .hero-film video { width: 100%; height: 100%; object-fit: cover; display: block; }
 @media (min-width: 880px) { .hero .wrap { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); padding-block: 64px 80px; } }
 
-/* Ofertă de lansare */
-.launch { background: var(--blush); color: var(--sage-deep); }
-.launch .wrap { padding-block: 12px; font-size: 15px; text-align: center; }
-.launch strong { font-weight: 600; }
 
 /* Secțiuni */
 section.block { padding-block: 64px 8px; }
@@ -108,7 +104,7 @@ section.block { padding-block: 64px 8px; }
 .cat-head .prices { font-size: 15px; color: var(--muted); }
 .cat-head .prices b { color: var(--rose); font-weight: 600; }
 .cat-note { margin: 10px 0 0; font-size: 14.5px; color: var(--muted); }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; margin-top: 18px; }
+.grid { align-items: start; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; margin-top: 18px; }
 .model { appearance: none; border: 0; padding: 0; background: none; text-align: left; font: inherit; color: inherit; cursor: pointer; }
 .model { display: block; width: 100%; }
 .poster { display: block; width: 100%; position: relative; aspect-ratio: 9 / 16; border-radius: 14px; overflow: hidden; background-color: var(--sage-deep); background-image: url("https://d2ol7oe51mr4n9.cloudfront.net/user_3K0DzioG28pZ1nKR3jeeGaVRNyD/914a7cdd-e5ef-4fa7-bf86-b11f5741f0e7.jpg"); background-size: 600% 300%; box-shadow: 0 10px 24px -14px rgba(30,43,35,0.5); transition: transform .25s; }
@@ -180,6 +176,27 @@ footer .wrap { padding-block: 0 28px; display: flex; flex-wrap: wrap; justify-co
 .float { position: fixed; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 20; display: inline-flex; align-items: center; gap: 8px; padding: 13px 18px; border-radius: 999px; background: var(--rose); color: #fff; font-weight: 600; font-size: 15px; text-decoration: none; box-shadow: 0 12px 28px -10px rgba(120,40,60,0.6); }
 .float:hover { background: #93405a; }
 
+/* Clipuri pe laterale (ecrane late) */
+.rail { position: fixed; top: 0; bottom: 0; z-index: 5; display: none; flex-direction: column; justify-content: center; gap: 16px; width: min(clamp(96px, calc((100vw - 1100px) / 2 - 36px), 150px), calc((100vh - 200px) * 0.1875)); pointer-events: none; }
+.rail-l { left: max(18px, env(safe-area-inset-left, 0px)); }
+.rail-r { right: max(18px, env(safe-area-inset-right, 0px)); }
+.rail-tile { position: relative; width: 100%; aspect-ratio: 9 / 16; border-radius: 12px; overflow: hidden; background: var(--sage-deep); box-shadow: 0 14px 30px -16px rgba(20,30,24,0.55); pointer-events: auto; cursor: pointer; border: 0; padding: 0; transition: transform .25s; }
+.rail-tile:hover { transform: scale(1.04); }
+.rail-tile video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.2s ease; }
+.rail-tile video.on { opacity: 1; }
+@media (min-width: 1340px) { .rail { display: flex; } }
+
+/* Benzi de film cu modele (telefon si ecrane mici) */
+.strip { margin-top: 56px; overflow: hidden; background: var(--sage-deep); padding-block: 14px; position: relative; }
+.strip::before, .strip::after { content: ""; position: absolute; left: 0; right: 0; height: 8px; background: repeating-linear-gradient(90deg, transparent 0 12px, rgba(233,198,205,0.35) 12px 26px); }
+.strip::before { top: 3px; }
+.strip::after { bottom: 3px; }
+.strip-track { display: flex; gap: 10px; width: max-content; animation: strip-move 70s linear infinite; }
+.strip-rev .strip-track { animation-direction: reverse; }
+.strip-item { flex: none; width: 92px; aspect-ratio: 9 / 16; border-radius: 8px; border: 0; padding: 0; cursor: pointer; background-color: var(--ink); background-image: url("https://d2ol7oe51mr4n9.cloudfront.net/user_3K0DzioG28pZ1nKR3jeeGaVRNyD/914a7cdd-e5ef-4fa7-bf86-b11f5741f0e7.jpg"); background-size: 600% 300%; }
+@keyframes strip-move { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (min-width: 1340px) { .strip { display: none; } }
+
 /* Player */
 dialog.player { padding: 0; border: 0; background: transparent; max-width: min(94vw, 420px); width: 100%; }
 dialog.player::backdrop { background: rgba(14,22,17,0.82); }
@@ -230,7 +247,9 @@ dialog.player::backdrop { background: rgba(14,22,17,0.82); }
   </div>
 </section>
 
-<div class="launch"><div class="wrap"><strong>Ofertă de lansare:</strong> primii 5 clienți primesc 30% reducere în schimbul unei recenzii.</div></div>
+
+<div class="rail rail-l" id="rail-l"></div>
+<div class="rail rail-r" id="rail-r"></div>
 
 <main>
   <section class="block" id="tipuri">
@@ -282,6 +301,8 @@ dialog.player::backdrop { background: rgba(14,22,17,0.82); }
     </div>
   </section>
 
+  <div class="strip" aria-hidden="true"><div class="strip-track"></div></div>
+
   <section class="block" id="confirmare">
     <div class="wrap">
       <h2 class="h2">Pagina de confirmare, inclusă</h2>
@@ -317,7 +338,7 @@ dialog.player::backdrop { background: rgba(14,22,17,0.82); }
       <h2 class="h2">Ce poze ne trimiteți</h2>
       <p class="sub">Doar pentru Personalizat și Premium. Cu pozele potrivite, scena seamănă cu voi de la prima încercare.</p>
       <div class="guide">
-        <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3K0DzioG28pZ1nKR3jeeGaVRNyD/6117dd63-8b9d-4210-bd03-17262e758a4f.jpg" alt="Ghid cu exemple: cele 5 poze cerute pentru invitația personalizată" loading="lazy">
+        <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3K0DzioG28pZ1nKR3jeeGaVRNyD/5de882f6-d3ba-4269-be03-84c8d3237cdb.jpg" alt="Ghid cu exemple: cele 5 poze cerute pentru invitația personalizată" loading="lazy">
         <div>
           <ol>
             <li>Ea, din trei sferturi, privind spre stânga</li>
@@ -331,6 +352,8 @@ dialog.player::backdrop { background: rgba(14,22,17,0.82); }
       </div>
     </div>
   </section>
+
+  <div class="strip strip-rev" aria-hidden="true"><div class="strip-track"></div></div>
 
   <section class="block" id="preturi">
     <div class="wrap">
@@ -484,6 +507,68 @@ dialog.player::backdrop { background: rgba(14,22,17,0.82); }
   $("p-close").addEventListener("click", closePlayer);
   dlg.addEventListener("click", function (e) { if (e.target === dlg) closePlayer(); });
   dlg.addEventListener("cancel", function () { vid.pause(); });
+
+  // Toate modelele, pentru laterale si benzi
+  var ALL = [];
+  CATS.forEach(function (c) { c.items.forEach(function (m) { ALL.push({ c: c, m: m }); }); });
+  function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Benzi de film: postere care curg; apasi si se deschide clipul
+  document.querySelectorAll(".strip-track").forEach(function (track) {
+    var list = shuffle(ALL.slice());
+    list.concat(list).forEach(function (x) {
+      var b = el("button", "strip-item"); b.type = "button"; b.tabIndex = -1;
+      if (x.m.p) { b.style.backgroundImage = "url(" + CF + x.m.p + ")"; b.style.backgroundSize = "cover"; b.style.backgroundPosition = "center"; }
+      else b.style.backgroundPosition = ((x.m.i % 6) * 20) + "% " + (Math.floor(x.m.i / 6) * 50) + "%";
+      b.addEventListener("click", function () { openPlayer(x.c, x.m); });
+      track.appendChild(b);
+    });
+  });
+
+  // Laterale: 3 clipuri pe fiecare parte, se schimba aleatoriu
+  var wide = window.matchMedia("(min-width: 1340px)");
+  var tiles = [], showing = {};
+  function makeTiles() {
+    ["rail-l", "rail-r"].forEach(function (id) {
+      var rail = $(id);
+      for (var k = 0; k < 3; k++) {
+        var t = el("button", "rail-tile"); t.type = "button"; t.tabIndex = -1;
+        var v1 = el("video"), v2 = el("video");
+        [v1, v2].forEach(function (v) { v.muted = true; v.loop = true; v.playsInline = true; v.setAttribute("playsinline", ""); v.preload = "none"; t.appendChild(v); });
+        var tile = { el: t, vids: [v1, v2], cur: 0, item: null };
+        t.addEventListener("click", function (tile) { return function () { if (tile.item) openPlayer(tile.item.c, tile.item.m); }; }(tile));
+        rail.appendChild(t); tiles.push(tile);
+      }
+    });
+  }
+  function nextFor(tile) {
+    var pool = ALL.filter(function (x) { return !showing[x.m.v]; });
+    var x = pool[Math.floor(Math.random() * pool.length)] || ALL[0];
+    if (tile.item) delete showing[tile.item.m.v];
+    showing[x.m.v] = true; tile.item = x;
+    var nv = tile.vids[1 - tile.cur], ov = tile.vids[tile.cur];
+    nv.src = CF + x.m.v + ".mp4";
+    nv.oncanplay = function () {
+      nv.oncanplay = null;
+      var p = nv.play(); if (p && p.catch) p.catch(function () {});
+      nv.classList.add("on"); ov.classList.remove("on");
+      setTimeout(function () { ov.pause(); ov.removeAttribute("src"); ov.load(); }, 1300);
+      tile.cur = 1 - tile.cur;
+    };
+    nv.load();
+  }
+  var started = false;
+  function startRails() {
+    if (started || !wide.matches) return;
+    started = true; makeTiles();
+    tiles.forEach(function (tile, k) {
+      setTimeout(function () { nextFor(tile); }, k * 400);
+      if (!reduce) setInterval(function () { if (!document.hidden) nextFor(tile); }, 7000 + k * 1300);
+    });
+  }
+  startRails();
+  if (wide.addEventListener) wide.addEventListener("change", startRails);
 
   // Butoane Instagram: copiem mesajul, apoi se deschide conversația
   var toast = $("toast"), tt;
