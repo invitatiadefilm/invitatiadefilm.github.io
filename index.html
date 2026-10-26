@@ -257,21 +257,21 @@ dialog.player::backdrop { background: rgba(14,22,17,0.82); }
       <h2 class="h2">Trei feluri de invitație</h2>
       <p class="sub">La toate scriem textele voastre: nume, dată, oră, locuri și termenul de confirmare.</p>
       <div class="tiers">
-        <div class="tier">
-          <h3>Clasic</h3>
-          <p>Alegeți un clip din catalog. Mirii apar din spate sau deloc, vedeta e peisajul. Rapid și accesibil.</p>
-          <p class="from">nuntă de la <b>199 lei</b></p>
+        <div class="tier tier-premium">
+          <h3>Premium · Povestea voastră</h3>
+          <p>3–4 scene, 30–45 de secunde: cum v-ați cunoscut, cererea, nunta. Un mic film despre voi.</p>
+          <p class="from"><b>949 lei</b></p>
+          <button type="button" class="see-premium" id="see-premium">▶ Vezi exemplul</button>
         </div>
         <div class="tier">
           <h3>Personalizat</h3>
           <p>O scenă nouă cu voi, creată după pozele voastre. Vedeți întâi o imagine de probă și o aprobați.</p>
           <p class="from">nuntă de la <b>599 lei</b></p>
         </div>
-        <div class="tier tier-premium">
-          <h3>Premium · Povestea voastră</h3>
-          <p>3–4 scene, 30–45 de secunde: cum v-ați cunoscut, cererea, nunta. Un mic film despre voi.</p>
-          <p class="from"><b>949 lei</b></p>
-          <button type="button" class="see-premium" id="see-premium">▶ Vezi exemplul</button>
+        <div class="tier">
+          <h3>Clasic</h3>
+          <p>Alegeți un clip din catalog. Mirii apar din spate sau deloc, vedeta e peisajul. Rapid și accesibil.</p>
+          <p class="from">nuntă de la <b>199 lei</b></p>
         </div>
       </div>
     </div>
@@ -362,13 +362,13 @@ dialog.player::backdrop { background: rgba(14,22,17,0.82); }
         <table>
           <thead><tr><th>Pachet</th><th>Preț</th><th>Livrare</th><th>Modificări incluse</th></tr></thead>
           <tbody>
-            <tr><td>Nuntă Clasic<span class="note">clip din catalog + pagina de confirmare</span></td><td class="price">199 lei</td><td>24–48 h</td><td>2 runde de text</td></tr>
-            <tr><td>Nuntă Personalizat<span class="note">scenă nouă cu voi + pagina de confirmare</span></td><td class="price">599 lei</td><td>3–5 zile</td><td>imagine de probă + 2 runde</td></tr>
             <tr><td>Nuntă Premium<span class="note">povestea voastră, 3–4 scene + pagina de confirmare</span></td><td class="price">949 lei</td><td>7–10 zile</td><td>imagine de probă pe scenă + 3 runde</td></tr>
-            <tr><td>Save the date Clasic<span class="note">clip scurt din catalog</span></td><td class="price">99 lei</td><td>24–48 h</td><td>1 rundă de text</td></tr>
+            <tr><td>Nuntă Personalizat<span class="note">scenă nouă cu voi + pagina de confirmare</span></td><td class="price">599 lei</td><td>3–5 zile</td><td>imagine de probă + 2 runde</td></tr>
+            <tr><td>Nuntă Clasic<span class="note">clip din catalog + pagina de confirmare</span></td><td class="price">199 lei</td><td>24–48 h</td><td>2 runde de text</td></tr>
             <tr><td>Save the date Personalizat<span class="note">scenă scurtă cu voi</span></td><td class="price">229 lei</td><td>3–5 zile</td><td>imagine de probă + 1 rundă</td></tr>
-            <tr><td>Botez Clasic<span class="note">detalii și peisaje + pagina de confirmare</span></td><td class="price">179 lei</td><td>24–48 h</td><td>2 runde de text</td></tr>
+            <tr><td>Save the date Clasic<span class="note">clip scurt din catalog</span></td><td class="price">99 lei</td><td>24–48 h</td><td>1 rundă de text</td></tr>
             <tr><td>Botez Personalizat<span class="note">scenă cu părinții + pagina de confirmare</span></td><td class="price">399 lei</td><td>3–5 zile</td><td>imagine de probă + 2 runde</td></tr>
+            <tr><td>Botez Clasic<span class="note">detalii și peisaje + pagina de confirmare</span></td><td class="price">179 lei</td><td>24–48 h</td><td>2 runde de text</td></tr>
             <tr><td>Zi de naștere copil<span class="note">clip tematic cu numele și vârsta</span></td><td class="price">99 lei</td><td>24–48 h</td><td>2 runde de text</td></tr>
           </tbody>
         </table>
@@ -429,7 +429,7 @@ dialog.player::backdrop { background: rgba(14,22,17,0.82); }
   var CF = "https://d2ol7oe51mr4n9.cloudfront.net/user_3K0DzioG28pZ1nKR3jeeGaVRNyD/";
   // i = poziția posterului în imaginea cu toate posterele (6 coloane x 3 rânduri)
   var CATS = [
-    { id: "nunta", title: "Nuntă", prices: "Clasic <b>199 lei</b> · Personalizat <b>599 lei</b> · Premium <b>949 lei</b>", note: "Pagina de confirmare inclusă.", items: [
+    { id: "nunta", title: "Nuntă", prices: "Premium <b>949 lei</b> · Personalizat <b>599 lei</b> · Clasic <b>199 lei</b>", note: "Pagina de confirmare inclusă.", items: [
       { p: "d3c56604-9e84-4c54-88da-27c05904286d.jpg", n: "Povestea voastră", t: "Premium", d: "Cum v-ați cunoscut, plaja, cererea și nunta, în 45 de secunde", v: "8a527d35-76a5-4e56-b207-1f2734f0788e" },
       { i: 2, n: "Conacul", t: "Clasic", d: "Masa festivă în curtea conacului, la apus", v: "bbd2604a-872c-4b44-b2c8-622373029440" },
       { i: 3, n: "Delta", t: "Clasic", d: "Mirii pe barcă, printre stuf, în lumina serii", v: "f77a2369-ccfb-41ff-87e1-f55b79c01acc" },
@@ -438,7 +438,7 @@ dialog.player::backdrop { background: rgba(14,22,17,0.82); }
       { i: 6, n: "Lavanda", t: "Personalizat", d: "Voi doi într-un câmp de lavandă, la apus", v: "01c77e56-89ee-42ef-b309-f1c392b8ee77" },
       { i: 7, n: "Terasa", t: "Personalizat", d: "Seară elegantă, cu orașul luminat în spate", v: "25da8349-71f3-4a8a-97d9-7acc168adad8" }
     ]},
-    { id: "std", title: "Save the date", prices: "Clasic <b>99 lei</b> · Personalizat <b>229 lei</b>", note: "Se trimite cu luni înainte, doar ca invitații să-și noteze data.", items: [
+    { id: "std", title: "Save the date", prices: "Personalizat <b>229 lei</b> · Clasic <b>99 lei</b>", note: "Se trimite cu luni înainte, doar ca invitații să-și noteze data.", items: [
       { i: 8, n: "Inima de pe plajă", t: "Clasic", d: "Inimă din lumânări pe plajă, cu muntele în zare", v: "ecc47fce-4469-4f0d-b7c1-042c2729c96b" },
       { i: 9, n: "Plicul", t: "Clasic", d: "Plic sigilat cu ceară, lângă flori uscate", v: "c6de58a8-9cbd-46dd-8eb3-aaec8985b0e3" },
       { i: 10, n: "Șampania", t: "Clasic", d: "Două pahare pe terasă, cu marea în spate", v: "233628da-44a6-45f7-b978-daaef92fcef5" },
@@ -447,7 +447,7 @@ dialog.player::backdrop { background: rgba(14,22,17,0.82); }
       { i: 13, n: "Podul", t: "Personalizat", d: "Voi doi pe un pod vechi, la apus", v: "75c83ffe-fb31-401c-8a5f-63a01e451da4" },
       { i: 14, n: "Stânca", t: "Personalizat", d: "Voi doi pe stânci, deasupra mării", v: "caedb448-6207-4908-bbef-79b686456de8" }
     ]},
-    { id: "botez", title: "Botez", prices: "Clasic <b>179 lei</b> · Personalizat <b>399 lei</b>", note: "Pagina de confirmare inclusă. La Personalizat apar părinții; bebelușul nu e generat cu fața lui.", items: [
+    { id: "botez", title: "Botez", prices: "Personalizat <b>399 lei</b> · Clasic <b>179 lei</b>", note: "Pagina de confirmare inclusă. La Personalizat apar părinții; bebelușul nu e generat cu fața lui.", items: [
       { i: 0, n: "Cristelnița", t: "Clasic", d: "Biserica și cristelnița cu flori albe", v: "e1cd6437-3620-436b-9efe-41440838d7dd" },
       { i: 1, n: "Părinții", t: "Personalizat", d: "Părinții cu bebelușul în brațe", v: "2469d442-5075-4d52-b2f1-0b0224b515a7" }
     ]},
@@ -462,6 +462,8 @@ dialog.player::backdrop { background: rgba(14,22,17,0.82); }
 
   // Catalog
   var root = $("catalog"), premiumOpen = null;
+  var RANK = { Premium: 0, Personalizat: 1, Clasic: 2 };
+  CATS.forEach(function (c) { c.items.sort(function (a, b) { return RANK[a.t] - RANK[b.t]; }); });
   CATS.forEach(function (c) {
     var wrap = el("div", "cat"); wrap.id = "cat-" + c.id;
     var head = el("div", "cat-head");
