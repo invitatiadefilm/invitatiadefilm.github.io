@@ -91,6 +91,16 @@ section.block { padding-block: 64px 8px; }
 .tier-premium p, .tier-premium .from { color: rgba(245,246,241,0.8); }
 .tier-premium .from b { color: var(--blush); }
 
+/* Personalizări */
+.custom { margin-top: 28px; padding: 24px; border-radius: 20px; background: var(--card); border: 1px solid var(--line); }
+.custom h3 { margin: 0; font-family: var(--display); font-style: italic; font-weight: 400; font-size: 1.7rem; color: var(--sage-deep); }
+.custom-lede { margin: 6px 0 0; color: var(--muted); }
+.custom-list { list-style: none; margin: 18px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px 22px; }
+.custom-list li { padding: 10px 0 10px 14px; border-left: 2px solid var(--blush); }
+.custom-list b { display: block; font-weight: 600; }
+.custom-list span { display: block; font-size: 14.5px; color: var(--muted); line-height: 1.45; }
+.custom-note { margin: 16px 0 0; font-size: 14px; color: var(--muted); }
+
 /* Catalog */
 .cat { margin-top: 44px; }
 .cat-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
@@ -248,6 +258,22 @@ dialog.player::backdrop { background: rgba(14,22,17,0.82); }
     <div class="wrap">
       <h2 class="h2">Modele</h2>
       <p class="sub">Apăsați pe un model ca să-l vedeți. Pe mostre scrie „MOSTRĂ”; clipul vostru vine curat, cu datele voastre.</p>
+      <div class="custom">
+        <h3>Totul se poate personaliza</h3>
+        <p class="custom-lede">Modelele sunt doar punctul de plecare. Spuneți-ne cum vă doriți invitația și o adaptăm.</p>
+        <ul class="custom-list">
+          <li><b>Textul</b><span>orice formulare, un citat, numele nașilor și ale părinților</span></li>
+          <li><b>Fontul și culorile</b><span>scris elegant, modern sau jucăuș, în culorile nunții voastre</span></li>
+          <li><b>Monograma</b><span>inițialele voastre, ca semnătură la final</span></li>
+          <li><b>Locul din scenă</b><span>la Personalizat: plaja, orașul sau locul unde v-ați cunoscut</span></li>
+          <li><b>Ținutele</b><span>rochia și costumul, după pozele voastre</span></li>
+          <li><b>Cățelul sau pisica</b><span>pot apărea și ei în scenă, lângă voi</span></li>
+          <li><b>Muzica</b><span>alegem împreună o piesă instrumentală potrivită</span></li>
+          <li><b>Limba</b><span>română, engleză sau bilingv, pentru invitații din diaspora</span></li>
+          <li><b>Formatul</b><span>vertical pentru telefon sau orizontal pentru proiectat la sală</span></li>
+        </ul>
+        <p class="custom-note">Textul, fontul și culorile sunt incluse în preț. Pentru o scenă cu totul nouă la Clasic, alegeți Personalizat.</p>
+      </div>
       <div id="catalog"></div>
     </div>
   </section>
