@@ -6,7 +6,7 @@
 <title>Răspunsuri · Irina &amp; Mihai</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#2E4536">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232E4536'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='30' fill='%23F5F6F1'%3EI%26amp;M%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=&#39;http://www.w3.org/2000/svg&#39; viewBox=&#39;0 0 64 64&#39;%3E%3Crect width=&#39;64&#39; height=&#39;64&#39; rx=&#39;14&#39; fill=&#39;%232E4536&#39;/%3E%3Ctext x=&#39;32&#39; y=&#39;43&#39; text-anchor=&#39;middle&#39; font-family=&#39;Georgia,serif&#39; font-style=&#39;italic&#39; font-size=&#39;30&#39; fill=&#39;%23F5F6F1&#39;%3EI%26amp;M%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap">
@@ -20,12 +20,11 @@
   <form id="gate-form" class="iv-gate">
     <label class="iv-label" for="couple-code">Cod de acces</label>
     <div class="iv-gate-row">
-      <input id="couple-code" class="iv-input" autocomplete="off" autocapitalize="characters" placeholder="ex. IM2027">
+      <input id="couple-code" class="iv-input" autocomplete="off" autocapitalize="characters" placeholder="codul primit de la noi">
       <button type="submit" id="gate-btn" class="iv-gate-btn">Deschide</button>
     </div>
     <p id="gate-error" class="iv-error" role="alert" hidden></p>
-    <p class="iv-hint">Pentru demonstrație, codul este IM2027.</p>
-  </form>
+<p class="iv-hint">Pentru demonstrație, codul este IM2027.</p>  </form>
   <a class="iv-text-link" href="../">Înapoi la invitație</a>
 </main>
 
@@ -61,8 +60,10 @@
 <script src="../config.js"></script>
 <script>
 (function () {
+  var IV = window.IV;
   var $ = function (id) { return document.getElementById(id); };
   var code = "", rows = [], filter = "toate";
+  var MENUS = IV.meniuri || [], STAY = !!IV.cazare;
 
   function el(tag, cls, text) {
     var e = document.createElement(tag);
@@ -81,7 +82,7 @@
     if (!window.IV_SCRIPT_URL) return Promise.reject(new Error("inactiv"));
     btn.disabled = true;
     var old = btn.textContent; btn.textContent = "Se încarcă…";
-    return fetch(window.IV_SCRIPT_URL + "?cod=" + encodeURIComponent(code))
+    return fetch(window.IV_SCRIPT_URL + "?ev=" + encodeURIComponent(IV.ev) + "&cod=" + encodeURIComponent(code))
       .then(function (r) { return r.json(); })
       .finally(function () { btn.disabled = false; btn.textContent = okLabel || old; });
   }
@@ -113,19 +114,21 @@
   });
 
   function render() {
-    var t = { yes: 0, no: 0, adults: 0, children: 0, stay: 0, veg: 0, fish: 0 };
+    var t = { yes: 0, no: 0, adults: 0, children: 0, stay: 0 }, perMenu = {};
     rows.forEach(function (r) {
       if (r.attending) {
         t.yes++; t.adults += r.adults; t.children += r.children;
         if (r.accommodation) t.stay += r.adults + r.children;
-        if (r.menu === "Vegetarian") t.veg += r.adults;
-        if (r.menu === "Pește") t.fish += r.adults;
+        if (r.menu) perMenu[r.menu] = (perMenu[r.menu] || 0) + r.adults;
       } else t.no++;
     });
 
+    var list = [[t.adults + t.children, "persoane confirmate", true], [t.adults, "adulți"], [t.children, "copii"]];
+    if (STAY) list.push([t.stay, "persoane cu cazare"]);
+    MENUS.forEach(function (m) { list.push([perMenu[m] || 0, "meniu " + m.toLowerCase()]); });
+    list.push([t.no, "nu pot veni"]);
     var stats = $("stats"); stats.textContent = "";
-    [[t.adults + t.children, "persoane confirmate", true], [t.adults, "adulți"], [t.children, "copii"], [t.stay, "persoane cu cazare"],
-     [t.veg, "meniuri vegetariene"], [t.fish, "meniuri cu pește"], [t.no, "nu pot veni"]].forEach(function (s) {
+    list.forEach(function (s) {
       var box = el("div", s[2] ? "iv-stat iv-stat-strong" : "iv-stat");
       box.appendChild(el("span", "iv-stat-num", s[0]));
       box.appendChild(el("span", "iv-stat-lbl", s[1]));
@@ -152,8 +155,10 @@
       var c2 = el("td"); c2.appendChild(badge(r.attending)); tr.appendChild(c2);
       tr.appendChild(el("td", "iv-num", r.attending ? r.adults : "–"));
       tr.appendChild(el("td", "iv-num", r.attending ? r.children : "–"));
-      var c5 = el("td", "", r.attending ? (r.menu || "–") : "–"); if (r.dietary) c5.appendChild(el("div", "iv-sub", r.dietary)); tr.appendChild(c5);
-      tr.appendChild(el("td", "", r.accommodation ? "Da" : "–"));
+      if (MENUS.length) {
+        var c5 = el("td", "", r.attending ? (r.menu || "–") : "–"); if (r.dietary) c5.appendChild(el("div", "iv-sub", r.dietary)); tr.appendChild(c5);
+      } else tr.appendChild(el("td", "", r.dietary || "–"));
+      if (STAY) tr.appendChild(el("td", "", r.accommodation ? "Da" : "–"));
       tr.appendChild(el("td", "iv-msg", r.message || "–"));
       tr.appendChild(el("td", "iv-sub", when(r.created)));
       tb.appendChild(tr);
@@ -184,7 +189,7 @@
     var blob = new Blob(["﻿" + [head.map(esc).join(";")].concat(lines).join("\r\n")], { type: "text/csv;charset=utf-8" });
     var url = URL.createObjectURL(blob);
     var a = document.createElement("a");
-    a.href = url; a.download = "confirmari-irina-mihai.csv";
+    a.href = url; a.download = "confirmari-" + IV.ev + ".csv";
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
   });

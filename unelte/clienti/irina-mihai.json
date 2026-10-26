@@ -1,0 +1,33 @@
+{
+  "slug": "irina-mihai",
+  "tip": "nunta",
+  "demo": true,
+  "titlu": "Irina & Mihai",
+  "start": "2027-05-15T16:30:00+03:00",
+  "sfarsit": "2027-05-16T02:00:00+03:00",
+  "lede": "Am ales să ne spunem „da” printre bujori, înconjurați de oamenii dragi. Ne-ar bucura enorm să fiți alături de noi.",
+  "video": "https://d2ol7oe51mr4n9.cloudfront.net/user_3K0DzioG28pZ1nKR3jeeGaVRNyD/d973eb2b-7201-49d8-9fd0-63d461f73fb4.mp4",
+  "poster": "https://d2ol7oe51mr4n9.cloudfront.net/user_3K0DzioG28pZ1nKR3jeeGaVRNyD/739de6ab-eba9-42d4-be15-8ae7a70e4f0b.jpg",
+  "og": "https://d2ol7oe51mr4n9.cloudfront.net/user_3K0DzioG28pZ1nKR3jeeGaVRNyD/e905d2f6-de35-445d-b400-3dbeb08e9f2e.jpg",
+  "program": [
+    {"ora": "16:30", "titlu": "Cununia religioasă", "loc": ["Biserica „Sfântul Nicolae”", "Snagov, județul Ilfov"], "harta": "Biserica Sfantul Nicolae Snagov"},
+    {"ora": "19:00", "titlu": "Petrecerea", "loc": ["Conacul cu Tei", "Snagov, județul Ilfov"], "nota": "De la 18:30 vă așteptăm cu un cocktail în grădina conacului.", "harta": "Snagov, Ilfov"}
+  ],
+  "cal_detalii": "Cununia religioasă la 16:30, petrecerea la 19:00.",
+  "cal_loc": "Snagov, județul Ilfov",
+  "familie": [
+    ["Nașii", "Andreea & Radu Ionescu"],
+    ["Părinții miresei", "Elena & Gheorghe Marinescu"],
+    ["Părinții mirelui", "Carmen & Dan Stoica"]
+  ],
+  "info": [
+    ["Ținută", "Elegantă, în nuanțe deschise. Petrecerea începe în grădină, alegeți încălțăminte comodă pe iarbă."],
+    ["Parcare", "Gratuită, în curtea conacului."],
+    ["Cazare", "Avem camere rezervate la conac pentru noaptea de 15 spre 16 mai. Bifați în formular dacă aveți nevoie."],
+    ["Cei mici", "Copiii sunt bineveniți. Vor avea meniu special și un colț de joacă cu animatori."]
+  ],
+  "rsvp": {
+    "pana_la": "15 aprilie 2027",
+    "cazare": "Avem nevoie de cazare la conac (15 spre 16 mai)"
+  }
+}
