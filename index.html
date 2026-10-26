@@ -127,7 +127,12 @@ section.block { padding-block: 64px 8px; }
 .rsvp li { margin: 4px 0; }
 .rsvp .cta-dark { justify-self: start; align-self: end; display: inline-flex; align-items: center; gap: 8px; padding: 13px 20px; border-radius: 999px; background: var(--sage-deep); color: var(--on-dark); text-decoration: none; font-weight: 500; }
 .rsvp .cta-dark:hover { background: var(--sage); }
-@media (min-width: 760px) { .rsvp { grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.6fr); } }
+.rsvp { align-items: center; }
+.rsvp-try { margin: 14px 0 16px; font-weight: 500; color: var(--sage-deep); }
+.phone { position: relative; justify-self: center; width: min(100%, 300px); height: 600px; max-height: 80vh; border: 10px solid var(--ink); border-radius: 42px; overflow: hidden; background: var(--ink); box-shadow: 0 30px 60px -28px rgba(20,30,24,0.6); }
+.phone iframe { display: block; width: 100%; height: 100%; border: 0; background: var(--paper); }
+.phone-notch { position: absolute; top: 0; left: 50%; width: 90px; height: 18px; margin-left: -45px; border-radius: 0 0 12px 12px; background: var(--ink); z-index: 2; }
+@media (min-width: 760px) { .rsvp { grid-template-columns: minmax(0, 1fr) auto; gap: 40px; padding: 32px 40px; } }
 
 /* Pași */
 .steps { list-style: none; margin: 26px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; counter-reset: s; }
@@ -223,6 +228,7 @@ dialog.player::backdrop { background: rgba(14,22,17,0.82); }
 .player-info p { margin: 4px 0 0; font-size: 14.5px; color: var(--muted); }
 .player-info .cta-want { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 14px; padding: 14px; border-radius: 14px; background: var(--sage-deep); color: var(--on-dark); font-weight: 600; text-decoration: none; }
 .player-info .cta-want:hover { background: var(--sage); }
+.rsvp-link { display: block; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); text-align: center; font-size: 14.5px; font-weight: 500; color: var(--sage); text-decoration: underline; text-decoration-color: var(--blush); text-underline-offset: 4px; }
 .player-info .hint { margin-top: 8px; font-size: 13px; text-align: center; }
 
 .toast { position: fixed; left: 50%; bottom: calc(84px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 40; max-width: calc(100vw - 32px); padding: 12px 16px; border-radius: 12px; background: var(--ink); color: var(--on-dark); font-size: 14.5px; text-align: center; }
@@ -321,16 +327,21 @@ dialog.player::backdrop { background: rgba(14,22,17,0.82); }
     <div class="wrap">
       <h2 class="h2">Pagina de confirmare, inclusă</h2>
       <div class="rsvp">
-        <div>
+        <div class="rsvp-text">
           <p style="margin:0 0 10px">La nuntă și botez primiți, pe lângă clip, un link pe care îl trimiteți invitaților. Pe pagină găsesc:</p>
           <ul>
             <li>invitația video și numărătoarea inversă până la eveniment;</li>
             <li>programul zilei, cu butoane Google Maps și Waze;</li>
-            <li>formularul de confirmare: câți adulți și copii, meniul, alergiile, cazarea;</li>
+            <li>formularul de confirmare: câți adulți și copii, meniul, alergiile, cazarea.</li>
           </ul>
           <p style="margin:10px 0 0">Voi vedeți toate răspunsurile și totalurile pe o pagină cu cod și descărcați lista pentru restaurant.</p>
+          <p class="rsvp-try">Încercați-o chiar aici, în telefon: derulați, porniți sunetul, completați formularul.</p>
+          <a class="cta-dark" href="irina-mihai/" target="_blank" rel="noreferrer">Deschide exemplul pe tot ecranul <span aria-hidden="true">→</span></a>
         </div>
-        <a class="cta-dark" href="irina-mihai/" target="_blank" rel="noreferrer">Vezi exemplul <span aria-hidden="true">→</span></a>
+        <div class="phone" aria-label="Exemplu de pagină de confirmare, Irina și Mihai">
+          <div class="phone-notch" aria-hidden="true"></div>
+          <iframe src="irina-mihai/" title="Exemplu: pagina de confirmare Irina și Mihai" loading="lazy"></iframe>
+        </div>
       </div>
     </div>
   </section>
@@ -461,6 +472,7 @@ dialog.player::backdrop { background: rgba(14,22,17,0.82); }
       <p id="p-desc"></p>
       <a class="cta-want js-ig" id="p-want" href="https://ig.me/m/invitatiadefilm" target="_blank" rel="noreferrer">Vreau modelul ăsta</a>
       <p class="hint">Copiem mesajul pentru voi; îl lipiți în conversația de pe Instagram.</p>
+      <a class="rsvp-link" id="p-rsvp" href="irina-mihai/" target="_blank" rel="noreferrer" hidden></a>
     </div>
   </div>
 </dialog>
@@ -543,6 +555,10 @@ dialog.player::backdrop { background: rgba(14,22,17,0.82); }
     $("p-title").textContent = m.n + " · " + c.title + " " + m.t;
     $("p-desc").textContent = m.d;
     $("p-want").setAttribute("data-msg", "Bună! Mă interesează modelul „" + m.n + "” (" + c.title + " " + m.t + ").");
+    var rl = $("p-rsvp");
+    if (c.id === "nunta" || c.id === "botez") { rl.textContent = "+ Pagina de confirmare inclusă: vezi exemplul"; rl.hidden = false; }
+    else if (c.id === "copii") { rl.textContent = "+ Pagina de confirmare opțională (+49 lei): vezi exemplul"; rl.hidden = false; }
+    else rl.hidden = true;
     vid.src = CF + m.v + ".mp4";
     if (dlg.showModal) dlg.showModal(); else dlg.setAttribute("open", "");
     vid.muted = false;
