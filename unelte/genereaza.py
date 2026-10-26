@@ -129,6 +129,9 @@ def main(cale):
         "cazare": rsvp["cazare"],
         "pagina_gazde": f(d["pagina_gazde"]),
         "demo": c.get("demo", False),
+        "noindex": c.get("noindex", False),
+        "nota_demo": c.get("nota_demo", ""),
+        "cod_demo": c.get("cod_demo", ""),
         "og": c.get("og") or c["poster"],
     })
 

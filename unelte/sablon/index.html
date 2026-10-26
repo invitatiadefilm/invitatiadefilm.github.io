@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{{ titlu }} · {{ data_titlu }}</title>
 <meta name="description" content="{{ descriere }}">
-{% if not demo %}<meta name="robots" content="noindex, nofollow">
+{% if not demo or noindex %}<meta name="robots" content="noindex, nofollow">
 {% endif %}<meta name="theme-color" content="#2E4536">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ro_RO">
@@ -196,7 +196,7 @@
 
     <footer class="iv-inner iv-footer">
       <span>{{ titlu }} · {{ data_scurta }}</span>
-      {% if demo %}<span>Pagină demonstrativă, cu nume și locuri fictive. · <a class="iv-text-link" href="raspunsuri/">Pagina mirilor</a></span>{% else %}<span>Invitație realizată de <a class="iv-text-link" href="https://invitatiadefilm.github.io/" target="_blank" rel="noreferrer">Invitația de Film</a></span>{% endif %}
+      {% if demo %}<span>{{ nota_demo or "Pagină demonstrativă, cu nume și locuri fictive." }} · <a class="iv-text-link" href="raspunsuri/">Pagina mirilor</a></span>{% else %}<span>Invitație realizată de <a class="iv-text-link" href="https://invitatiadefilm.github.io/" target="_blank" rel="noreferrer">Invitația de Film</a></span>{% endif %}
     </footer>
   </main>
 </div>

@@ -24,7 +24,7 @@
       <button type="submit" id="gate-btn" class="iv-gate-btn">Deschide</button>
     </div>
     <p id="gate-error" class="iv-error" role="alert" hidden></p>
-    {% if demo %}<p class="iv-hint">Pentru demonstrație, codul este IM2027.</p>{% endif %}
+    {% if demo %}<p class="iv-hint">Pentru demonstrație, codul este {{ cod_demo or "IM2027" }}.</p>{% endif %}
   </form>
   <a class="iv-text-link" href="../">Înapoi la invitație</a>
 </main>

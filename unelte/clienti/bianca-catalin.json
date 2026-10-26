@@ -1,0 +1,69 @@
+{
+  "slug": "bianca-catalin",
+  "tip": "nunta",
+  "titlu": "Bianca & Cătălin",
+  "start": "2027-08-28T16:00:00+03:00",
+  "sfarsit": "2027-08-29T03:00:00+03:00",
+  "lede": "Am ales să ne spunem „da” la sfârșit de vară, înconjurați de oamenii dragi. Ne-ar bucura enorm să fiți alături de noi.",
+  "video": "film.mp4",
+  "poster": "poster.jpg",
+  "og": "og.jpg",
+  "program": [
+    {
+      "ora": "16:00",
+      "titlu": "Cununia religioasă",
+      "loc": [
+        "Biserica „Sfântul Nicolae”",
+        "București"
+      ],
+      "harta": "Biserica Sfantul Nicolae Bucuresti"
+    },
+    {
+      "ora": "19:00",
+      "titlu": "Petrecerea",
+      "loc": [
+        "Salon de evenimente",
+        "București"
+      ],
+      "nota": "De la 18:30 vă așteptăm cu un cocktail de bun venit.",
+      "harta": "Bucuresti"
+    }
+  ],
+  "cal_detalii": "Cununia religioasă la 16:00, petrecerea la 19:00.",
+  "cal_loc": "București",
+  "familie": [
+    [
+      "Nașii",
+      "Nume Prenume & Nume Prenume"
+    ],
+    [
+      "Părinții miresei",
+      "Nume & Nume"
+    ],
+    [
+      "Părinții mirelui",
+      "Nume & Nume"
+    ]
+  ],
+  "info": [
+    [
+      "Ținută",
+      "Elegantă, în nuanțe deschise, potrivite pentru o seară de vară."
+    ],
+    [
+      "Parcare",
+      "Gratuită, la locația petrecerii."
+    ],
+    [
+      "Cei mici",
+      "Copiii sunt bineveniți și vor avea meniu special."
+    ]
+  ],
+  "rsvp": {
+    "pana_la": "1 august 2027"
+  },
+  "demo": true,
+  "noindex": true,
+  "cod_demo": "BC2027",
+  "nota_demo": "Pagină de exemplu: locurile și numele din program sunt orientative."
+}
