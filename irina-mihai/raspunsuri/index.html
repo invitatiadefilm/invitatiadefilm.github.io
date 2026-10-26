@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Răspunsuri · Irina &amp; Mihai</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#2E4536">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232E4536'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='30' fill='%23F5F6F1'%3EI%26amp;M%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap">
+<link rel="stylesheet" href="../stil.css">
+</head>
+<body>
+<main id="gate" class="iv-admin iv-admin-gate">
+  <p class="iv-eyebrow">Pagina mirilor</p>
+  <h1 class="iv-h2">Răspunsurile invitaților</h1>
+  <p class="iv-lede iv-lede-tight">Introduceți codul primit pentru a vedea cine a confirmat.</p>
+  <form id="gate-form" class="iv-gate">
+    <label class="iv-label" for="couple-code">Cod de acces</label>
+    <div class="iv-gate-row">
+      <input id="couple-code" class="iv-input" autocomplete="off" autocapitalize="characters" placeholder="ex. IM2027">
+      <button type="submit" id="gate-btn" class="iv-gate-btn">Deschide</button>
+    </div>
+    <p id="gate-error" class="iv-error" role="alert" hidden></p>
+    <p class="iv-hint">Pentru demonstrație, codul este IM2027.</p>
+  </form>
+  <a class="iv-text-link" href="../">Înapoi la invitație</a>
+</main>
+
+<main id="board" class="iv-admin" hidden>
+  <div class="iv-admin-head">
+    <div>
+      <p class="iv-eyebrow">Irina &amp; Mihai · 15 mai 2027</p>
+      <h1 class="iv-h2">Răspunsurile invitaților</h1>
+    </div>
+    <div class="iv-admin-actions">
+      <button type="button" id="refresh" class="iv-ghost">Actualizează</button>
+      <button type="button" id="csv" class="iv-ghost iv-ghost-solid">Descarcă tabelul (Excel)</button>
+    </div>
+  </div>
+  <div class="iv-stats" id="stats"></div>
+  <div class="iv-tabs" role="tablist" aria-label="Filtrează răspunsurile">
+    <button type="button" role="tab" class="iv-tab" data-f="toate" aria-selected="true">Toate</button>
+    <button type="button" role="tab" class="iv-tab" data-f="vin" aria-selected="false">Vin</button>
+    <button type="button" role="tab" class="iv-tab" data-f="nu" aria-selected="false">Nu vin</button>
+  </div>
+  <p id="empty" class="iv-empty" hidden>Încă nu există răspunsuri aici. Imediat ce un invitat confirmă, apare în listă.</p>
+  <div class="iv-table-wrap" id="table-wrap">
+    <table class="iv-table">
+      <thead>
+        <tr><th>Invitat</th><th>Răspuns</th><th class="iv-num">Adulți</th><th class="iv-num">Copii</th><th>Meniu</th><th>Cazare</th><th>Mesaj</th><th>Trimis</th></tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+  <ul class="iv-cards" id="cards"></ul>
+</main>
+
+<script src="../config.js"></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var code = "", rows = [], filter = "toate";
+
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text !== undefined && text !== null) e.textContent = String(text);
+    return e;
+  }
+  function when(iso) {
+    var d = new Date(iso);
+    if (isNaN(d.getTime())) return String(iso || "");
+    return d.toLocaleString("ro-RO", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit", timeZone: "Europe/Bucharest" });
+  }
+  function badge(yes) { return el("span", "iv-badge " + (yes ? "iv-badge-yes" : "iv-badge-no"), yes ? "Vine" : "Nu vine"); }
+
+  function load(btn, okLabel) {
+    if (!window.IV_SCRIPT_URL) return Promise.reject(new Error("inactiv"));
+    btn.disabled = true;
+    var old = btn.textContent; btn.textContent = "Se încarcă…";
+    return fetch(window.IV_SCRIPT_URL + "?cod=" + encodeURIComponent(code))
+      .then(function (r) { return r.json(); })
+      .finally(function () { btn.disabled = false; btn.textContent = okLabel || old; });
+  }
+
+  $("gate-form").addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    code = $("couple-code").value.trim();
+    var err = $("gate-error"); err.hidden = true;
+    if (!code) return;
+    load($("gate-btn"), "Deschide").then(function (res) {
+      if (!res || !res.ok) { err.textContent = "Codul nu este corect. Îl găsiți în mesajul primit odată cu pagina."; err.hidden = false; return; }
+      rows = res.rows || [];
+      $("gate").hidden = true; $("board").hidden = false;
+      render();
+    }).catch(function (e) {
+      err.textContent = e && e.message === "inactiv"
+        ? "Pagina nu este încă legată de tabelul cu răspunsuri."
+        : "Răspunsurile nu s-au încărcat. Verificați conexiunea și încercați din nou.";
+      err.hidden = false;
+    });
+  });
+
+  $("refresh").addEventListener("click", function () {
+    load($("refresh"), "Actualizează").then(function (res) { if (res && res.ok) { rows = res.rows || []; render(); } }).catch(function () {});
+  });
+
+  document.querySelectorAll(".iv-tab").forEach(function (t) {
+    t.addEventListener("click", function () { filter = t.getAttribute("data-f"); render(); });
+  });
+
+  function render() {
+    var t = { yes: 0, no: 0, adults: 0, children: 0, stay: 0, veg: 0, fish: 0 };
+    rows.forEach(function (r) {
+      if (r.attending) {
+        t.yes++; t.adults += r.adults; t.children += r.children;
+        if (r.accommodation) t.stay += r.adults + r.children;
+        if (r.menu === "Vegetarian") t.veg += r.adults;
+        if (r.menu === "Pește") t.fish += r.adults;
+      } else t.no++;
+    });
+
+    var stats = $("stats"); stats.textContent = "";
+    [[t.adults + t.children, "persoane confirmate", true], [t.adults, "adulți"], [t.children, "copii"], [t.stay, "persoane cu cazare"],
+     [t.veg, "meniuri vegetariene"], [t.fish, "meniuri cu pește"], [t.no, "nu pot veni"]].forEach(function (s) {
+      var box = el("div", s[2] ? "iv-stat iv-stat-strong" : "iv-stat");
+      box.appendChild(el("span", "iv-stat-num", s[0]));
+      box.appendChild(el("span", "iv-stat-lbl", s[1]));
+      stats.appendChild(box);
+    });
+
+    var labels = { toate: "Toate (" + rows.length + ")", vin: "Vin (" + t.yes + ")", nu: "Nu vin (" + t.no + ")" };
+    document.querySelectorAll(".iv-tab").forEach(function (b) {
+      var f = b.getAttribute("data-f");
+      b.textContent = labels[f];
+      b.setAttribute("aria-selected", String(f === filter));
+    });
+
+    var vis = rows.filter(function (r) { return filter === "toate" ? true : filter === "vin" ? r.attending : !r.attending; });
+    $("empty").hidden = vis.length > 0;
+    $("table-wrap").hidden = vis.length === 0;
+    $("cards").hidden = vis.length === 0;
+
+    var tb = $("tbody"); tb.textContent = "";
+    var cards = $("cards"); cards.textContent = "";
+    vis.forEach(function (r) {
+      var tr = el("tr");
+      var c1 = el("td"); c1.appendChild(el("strong", "", r.name)); if (r.phone) c1.appendChild(el("div", "iv-sub", r.phone)); tr.appendChild(c1);
+      var c2 = el("td"); c2.appendChild(badge(r.attending)); tr.appendChild(c2);
+      tr.appendChild(el("td", "iv-num", r.attending ? r.adults : "–"));
+      tr.appendChild(el("td", "iv-num", r.attending ? r.children : "–"));
+      var c5 = el("td", "", r.attending ? (r.menu || "–") : "–"); if (r.dietary) c5.appendChild(el("div", "iv-sub", r.dietary)); tr.appendChild(c5);
+      tr.appendChild(el("td", "", r.accommodation ? "Da" : "–"));
+      tr.appendChild(el("td", "iv-msg", r.message || "–"));
+      tr.appendChild(el("td", "iv-sub", when(r.created)));
+      tb.appendChild(tr);
+
+      var li = el("li", "iv-card");
+      var top = el("div", "iv-card-top"); top.appendChild(el("strong", "", r.name)); top.appendChild(badge(r.attending)); li.appendChild(top);
+      if (r.attending) {
+        var line = r.adults + (r.adults === 1 ? " adult" : " adulți");
+        if (r.children) line += ", " + r.children + (r.children === 1 ? " copil" : " copii");
+        if (r.menu) line += " · meniu " + r.menu.toLowerCase();
+        if (r.accommodation) line += " · cazare";
+        li.appendChild(el("p", "iv-card-line", line));
+      }
+      if (r.dietary) li.appendChild(el("p", "iv-sub", "Restricții: " + r.dietary));
+      if (r.message) li.appendChild(el("p", "iv-card-msg", "„" + r.message + "”"));
+      li.appendChild(el("p", "iv-sub", when(r.created) + (r.phone ? " · " + r.phone : "")));
+      cards.appendChild(li);
+    });
+  }
+
+  $("csv").addEventListener("click", function () {
+    var esc = function (v) { return '"' + String(v === undefined || v === null ? "" : v).replace(/"/g, '""') + '"'; };
+    var head = ["Nume", "Vine", "Adulți", "Copii", "Meniu", "Restricții", "Cazare", "Telefon", "Mesaj", "Trimis"];
+    var lines = rows.map(function (r) {
+      return [r.name, r.attending ? "Da" : "Nu", r.adults, r.children, r.attending ? r.menu : "", r.dietary,
+        r.accommodation ? "Da" : "Nu", r.phone, r.message, when(r.created)].map(esc).join(";");
+    });
+    var blob = new Blob(["﻿" + [head.map(esc).join(";")].concat(lines).join("\r\n")], { type: "text/csv;charset=utf-8" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url; a.download = "confirmari-irina-mihai.csv";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  });
+})();
+</script>
+</body>
+</html>
