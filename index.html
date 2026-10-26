@@ -119,6 +119,9 @@ section.block { padding-block: 64px 8px; }
 .tag { position: absolute; left: 8px; top: 8px; padding: 3px 9px; border-radius: 999px; font-size: 12px; font-weight: 600; letter-spacing: 0.03em; }
 .tag-clasic { background: rgba(245,246,241,0.92); color: var(--sage-deep); }
 .tag-pers { background: var(--rose); color: #fff; }
+.tag-prem { background: var(--sage-deep); color: var(--blush); border: 1px solid var(--blush); }
+.see-premium { margin-top: 14px; appearance: none; display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; border: 1px solid var(--blush); background: transparent; color: var(--blush); font: 500 15px/1 var(--body); cursor: pointer; }
+.see-premium:hover { background: rgba(233,198,205,0.12); }
 .model-name { display: block; margin-top: 8px; font-weight: 500; }
 .model-desc { display: block; font-size: 13.5px; color: var(--muted); line-height: 1.4; }
 
@@ -249,6 +252,7 @@ dialog.player::backdrop { background: rgba(14,22,17,0.82); }
           <h3>Premium · Povestea voastră</h3>
           <p>3–4 scene, 30–45 de secunde: cum v-ați cunoscut, cererea, nunta. Un mic film despre voi.</p>
           <p class="from"><b>949 lei</b></p>
+          <button type="button" class="see-premium" id="see-premium">▶ Vezi exemplul</button>
         </div>
       </div>
     </div>
@@ -402,7 +406,8 @@ dialog.player::backdrop { background: rgba(14,22,17,0.82); }
   var CF = "https://d2ol7oe51mr4n9.cloudfront.net/user_3K0DzioG28pZ1nKR3jeeGaVRNyD/";
   // i = poziția posterului în imaginea cu toate posterele (6 coloane x 3 rânduri)
   var CATS = [
-    { id: "nunta", title: "Nuntă", prices: "Clasic <b>199 lei</b> · Personalizat <b>599 lei</b>", note: "Pagina de confirmare inclusă.", items: [
+    { id: "nunta", title: "Nuntă", prices: "Clasic <b>199 lei</b> · Personalizat <b>599 lei</b> · Premium <b>949 lei</b>", note: "Pagina de confirmare inclusă.", items: [
+      { p: "d3c56604-9e84-4c54-88da-27c05904286d.jpg", n: "Povestea voastră", t: "Premium", d: "Cum v-ați cunoscut, plaja, cererea și nunta, în 45 de secunde", v: "8a527d35-76a5-4e56-b207-1f2734f0788e" },
       { i: 2, n: "Conacul", t: "Clasic", d: "Masa festivă în curtea conacului, la apus", v: "bbd2604a-872c-4b44-b2c8-622373029440" },
       { i: 3, n: "Delta", t: "Clasic", d: "Mirii pe barcă, printre stuf, în lumina serii", v: "f77a2369-ccfb-41ff-87e1-f55b79c01acc" },
       { i: 4, n: "Muntele", t: "Clasic", d: "Mirii din spate, deasupra norilor", v: "81f44828-e34b-4ff6-9635-e8e2f38e1706" },
@@ -433,7 +438,7 @@ dialog.player::backdrop { background: rgba(14,22,17,0.82); }
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
 
   // Catalog
-  var root = $("catalog");
+  var root = $("catalog"), premiumOpen = null;
   CATS.forEach(function (c) {
     var wrap = el("div", "cat"); wrap.id = "cat-" + c.id;
     var head = el("div", "cat-head");
@@ -445,19 +450,24 @@ dialog.player::backdrop { background: rgba(14,22,17,0.82); }
     c.items.forEach(function (m) {
       var b = el("button", "model"); b.type = "button";
       var p = el("span", "poster");
-      p.style.backgroundPosition = ((m.i % 6) * 20) + "% " + (Math.floor(m.i / 6) * 50) + "%";
-      p.appendChild(el("span", "tag " + (m.t === "Clasic" ? "tag-clasic" : "tag-pers"), m.t));
+      if (m.p) { p.style.backgroundImage = "url(" + CF + m.p + ")"; p.style.backgroundSize = "cover"; p.style.backgroundPosition = "center"; }
+      else p.style.backgroundPosition = ((m.i % 6) * 20) + "% " + (Math.floor(m.i / 6) * 50) + "%";
+      p.appendChild(el("span", "tag " + (m.t === "Clasic" ? "tag-clasic" : m.t === "Premium" ? "tag-prem" : "tag-pers"), m.t));
       p.appendChild(el("span", "play"));
       b.appendChild(p);
       b.appendChild(el("span", "model-name", m.n));
       b.appendChild(el("span", "model-desc", m.d));
       b.setAttribute("aria-label", "Vezi modelul " + m.n + ", " + c.title + " " + m.t);
       b.addEventListener("click", function () { openPlayer(c, m); });
+      if (m.t === "Premium") premiumOpen = function () { openPlayer(c, m); };
       grid.appendChild(b);
     });
     wrap.appendChild(grid);
     root.appendChild(wrap);
   });
+
+  var pb = document.getElementById("see-premium");
+  if (pb) pb.addEventListener("click", function () { if (premiumOpen) premiumOpen(); });
 
   // Player
   var dlg = $("player"), vid = $("p-video");
