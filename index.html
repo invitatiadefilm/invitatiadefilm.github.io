@@ -2,12 +2,465 @@
 <html lang="ro">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Invitații video</title>
-<meta name="robots" content="noindex">
-<meta http-equiv="refresh" content="0; url=irina-mihai/">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Invitația de Film</title>
+<meta name="description" content="Invitații video cinematice pentru nuntă, botez, save the date și zi de naștere, cu pagină de confirmare a invitaților inclusă.">
+<meta name="theme-color" content="#2E4536">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ro_RO">
+<meta property="og:title" content="Invitația de Film">
+<meta property="og:description" content="Nu desen animat. Un film adevărat cu voi doi, din pozele voastre. Nuntă · Botez · Save the date · Zi de naștere.">
+<meta property="og:image" content="https://d2ol7oe51mr4n9.cloudfront.net/user_3K0DzioG28pZ1nKR3jeeGaVRNyD/6ea9e137-9d11-45f6-9053-73aa49a13a96.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232E4536'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='34' fill='%23E9C6CD'%3Ef%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap">
+<style>
+/* Vitrina: fâșie de film (verde) sus, apoi catalogul pe hârtie deschisă. */
+:root {
+  --paper: #f5f6f1;
+  --card: #ffffff;
+  --ink: #1e2b23;
+  --muted: #58655c;
+  --sage: #3e5a48;
+  --sage-deep: #2e4536;
+  --sage-soft: #e3eae2;
+  --blush: #e9c6cd;
+  --rose: #a84d62;
+  --line: #d6ddd3;
+  --on-dark: #f5f6f1;
+  --display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --body: "Jost", "Segoe UI", system-ui, -apple-system, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
+a { color: inherit; }
+
+.wrap { width: 100%; max-width: 1100px; margin-inline: auto; padding-left: max(18px, env(safe-area-inset-left, 0px)); padding-right: max(18px, env(safe-area-inset-right, 0px)); }
+
+/* Antet */
+.bar { background: var(--sage-deep); color: var(--on-dark); }
+.bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 14px; }
+.brand { font-family: var(--display); font-style: italic; font-size: 1.35rem; text-decoration: none; letter-spacing: 0.01em; }
+.brand span { color: var(--blush); }
+.bar-link { font-size: 15px; font-weight: 500; text-decoration: none; color: var(--blush); white-space: nowrap; }
+
+/* Deschidere */
+.hero { background: var(--sage-deep); color: var(--on-dark); position: relative; overflow: hidden; }
+.hero::before, .hero::after { content: ""; position: absolute; left: 0; right: 0; height: 14px; background: repeating-linear-gradient(90deg, transparent 0 18px, rgba(233,198,205,0.35) 18px 40px); }
+.hero::before { top: 0; }
+.hero::after { bottom: 0; }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 36px; padding-block: 40px 56px; align-items: center; }
+.eyebrow { margin: 0; font: 500 13px/1.3 var(--body); letter-spacing: 0.18em; text-transform: uppercase; color: var(--blush); }
+.hero h1 { margin: 14px 0 0; font-family: var(--display); font-weight: 400; font-size: clamp(2.4rem, 7vw, 4.2rem); line-height: 1.05; text-wrap: balance; }
+.hero h1 em { color: var(--blush); }
+.hero p.lede { margin: 18px 0 0; max-width: 46ch; color: rgba(245,246,241,0.82); font-size: 1.08rem; }
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.cta-main { display: inline-flex; align-items: center; gap: 10px; padding: 15px 22px; border-radius: 999px; background: var(--blush); color: var(--sage-deep); font-weight: 600; text-decoration: none; transition: transform .2s, background .2s; }
+.cta-main:hover { transform: translateY(-2px); background: #f1d6dc; }
+.cta-ghost { display: inline-flex; align-items: center; gap: 8px; padding: 14px 20px; border-radius: 999px; border: 1px solid rgba(245,246,241,0.4); color: var(--on-dark); font-weight: 500; text-decoration: none; transition: border-color .2s, background .2s; }
+.cta-ghost:hover { border-color: var(--blush); background: rgba(245,246,241,0.08); }
+.hero-facts { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 26px 0 0; padding: 0; list-style: none; font-size: 15px; color: rgba(245,246,241,0.8); }
+.hero-facts li::before { content: "✓ "; color: var(--blush); }
+.hero-film { justify-self: center; width: min(100%, 340px); aspect-ratio: 9 / 16; border-radius: 22px; overflow: hidden; background: #000; box-shadow: 0 30px 60px -24px rgba(0,0,0,0.6); border: 6px solid rgba(245,246,241,0.08); }
+.hero-film video { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (min-width: 880px) { .hero .wrap { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); padding-block: 64px 80px; } }
+
+/* Ofertă de lansare */
+.launch { background: var(--blush); color: var(--sage-deep); }
+.launch .wrap { padding-block: 12px; font-size: 15px; text-align: center; }
+.launch strong { font-weight: 600; }
+
+/* Secțiuni */
+section.block { padding-block: 64px 8px; }
+.h2 { margin: 0; font-family: var(--display); font-style: italic; font-weight: 400; font-size: clamp(2rem, 5vw, 2.8rem); line-height: 1.1; color: var(--sage-deep); text-wrap: balance; }
+.sub { margin: 10px 0 0; max-width: 62ch; color: var(--muted); }
+
+/* Cum alegi: Clasic / Personalizat / Premium */
+.tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-top: 28px; }
+.tier { padding: 22px; border: 1px solid var(--line); border-radius: 18px; background: var(--card); }
+.tier h3 { margin: 0; font-family: var(--display); font-weight: 500; font-size: 1.45rem; }
+.tier p { margin: 8px 0 0; color: var(--muted); font-size: 15.5px; }
+.tier .from { margin-top: 14px; font-size: 14px; color: var(--ink); }
+.tier .from b { font-family: var(--display); font-size: 1.3rem; font-weight: 500; color: var(--rose); }
+.tier-premium { background: var(--sage-deep); border-color: var(--sage-deep); color: var(--on-dark); }
+.tier-premium p, .tier-premium .from { color: rgba(245,246,241,0.8); }
+.tier-premium .from b { color: var(--blush); }
+
+/* Catalog */
+.cat { margin-top: 44px; }
+.cat-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.cat-head h3 { margin: 0; font-family: var(--display); font-weight: 500; font-size: 1.6rem; }
+.cat-head .prices { font-size: 15px; color: var(--muted); }
+.cat-head .prices b { color: var(--rose); font-weight: 600; }
+.cat-note { margin: 10px 0 0; font-size: 14.5px; color: var(--muted); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; margin-top: 18px; }
+.model { appearance: none; border: 0; padding: 0; background: none; text-align: left; font: inherit; color: inherit; cursor: pointer; }
+.model { display: block; width: 100%; }
+.poster { display: block; width: 100%; position: relative; aspect-ratio: 9 / 16; border-radius: 14px; overflow: hidden; background-color: var(--sage-deep); background-image: url("https://d2ol7oe51mr4n9.cloudfront.net/user_3K0DzioG28pZ1nKR3jeeGaVRNyD/914a7cdd-e5ef-4fa7-bf86-b11f5741f0e7.jpg"); background-size: 600% 300%; box-shadow: 0 10px 24px -14px rgba(30,43,35,0.5); transition: transform .25s; }
+.model:hover .poster { transform: translateY(-3px); }
+.play { position: absolute; left: 50%; top: 50%; width: 52px; height: 52px; margin: -26px 0 0 -26px; border-radius: 50%; background: rgba(245,246,241,0.88); display: grid; place-items: center; transition: transform .2s; }
+.model:hover .play { transform: scale(1.08); }
+.play::after { content: ""; border-left: 15px solid var(--sage-deep); border-top: 9px solid transparent; border-bottom: 9px solid transparent; margin-left: 4px; }
+.tag { position: absolute; left: 8px; top: 8px; padding: 3px 9px; border-radius: 999px; font-size: 12px; font-weight: 600; letter-spacing: 0.03em; }
+.tag-clasic { background: rgba(245,246,241,0.92); color: var(--sage-deep); }
+.tag-pers { background: var(--rose); color: #fff; }
+.model-name { display: block; margin-top: 8px; font-weight: 500; }
+.model-desc { display: block; font-size: 13.5px; color: var(--muted); line-height: 1.4; }
+
+/* Pagina de confirmare */
+.rsvp { display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; margin-top: 26px; padding: 26px; border-radius: 20px; background: var(--sage-soft); }
+.rsvp ul { margin: 0; padding-left: 20px; }
+.rsvp li { margin: 4px 0; }
+.rsvp .cta-dark { justify-self: start; align-self: end; display: inline-flex; align-items: center; gap: 8px; padding: 13px 20px; border-radius: 999px; background: var(--sage-deep); color: var(--on-dark); text-decoration: none; font-weight: 500; }
+.rsvp .cta-dark:hover { background: var(--sage); }
+@media (min-width: 760px) { .rsvp { grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.6fr); } }
+
+/* Pași */
+.steps { list-style: none; margin: 26px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; counter-reset: s; }
+.steps li { counter-increment: s; padding: 20px; border-top: 2px solid var(--sage-deep); background: var(--card); border-radius: 0 0 14px 14px; }
+.steps li::before { content: counter(s); display: block; font-family: var(--display); font-style: italic; font-size: 2rem; line-height: 1; color: var(--rose); }
+.steps h3 { margin: 8px 0 0; font-size: 1.05rem; font-weight: 600; }
+.steps p { margin: 6px 0 0; font-size: 15px; color: var(--muted); }
+
+/* Ghid poze */
+.guide { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; margin-top: 26px; align-items: start; }
+.guide img { width: 100%; max-width: 520px; border-radius: 16px; border: 1px solid var(--line); background: var(--card); }
+.guide ol { margin: 0; padding-left: 22px; }
+.guide li { margin: 6px 0; }
+.guide .tip { margin-top: 14px; padding: 14px 16px; border-left: 3px solid var(--blush); background: var(--card); font-size: 15px; color: var(--muted); }
+@media (min-width: 820px) { .guide { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+
+/* Prețuri */
+.table-wrap { overflow-x: auto; margin-top: 24px; border: 1px solid var(--line); border-radius: 16px; background: var(--card); }
+table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 15.5px; }
+th { text-align: left; padding: 12px 16px; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); background: var(--paper); border-bottom: 1px solid var(--line); }
+td { padding: 13px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+td.price { font-family: var(--display); font-size: 1.15rem; color: var(--rose); white-space: nowrap; font-variant-numeric: lining-nums; }
+td .note { display: block; font-size: 13px; color: var(--muted); }
+.extras { margin: 14px 0 0; font-size: 14.5px; color: var(--muted); }
+
+/* Întrebări */
+.faq { margin-top: 22px; border-top: 1px solid var(--line); }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary { cursor: pointer; padding: 16px 32px 16px 0; font-weight: 500; list-style: none; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 12px; font-size: 1.5rem; color: var(--rose); transition: transform .2s; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { margin: 0 0 16px; color: var(--muted); max-width: 70ch; }
+
+/* Final */
+.final { margin-top: 72px; background: var(--sage-deep); color: var(--on-dark); }
+.final .wrap { padding-block: 56px; text-align: center; }
+.final h2 { margin: 0; font-family: var(--display); font-style: italic; font-weight: 400; font-size: clamp(2rem, 5vw, 2.8rem); }
+.final p { margin: 12px auto 0; max-width: 50ch; color: rgba(245,246,241,0.8); }
+.final .cta-main { margin-top: 24px; }
+footer { background: var(--sage-deep); color: rgba(245,246,241,0.6); font-size: 14px; }
+footer .wrap { padding-block: 0 28px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; border-top: 1px solid rgba(245,246,241,0.12); padding-top: 18px; }
+
+/* Buton fix Instagram */
+.float { position: fixed; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 20; display: inline-flex; align-items: center; gap: 8px; padding: 13px 18px; border-radius: 999px; background: var(--rose); color: #fff; font-weight: 600; font-size: 15px; text-decoration: none; box-shadow: 0 12px 28px -10px rgba(120,40,60,0.6); }
+.float:hover { background: #93405a; }
+
+/* Player */
+dialog.player { padding: 0; border: 0; background: transparent; max-width: min(94vw, 420px); width: 100%; }
+dialog.player::backdrop { background: rgba(14,22,17,0.82); }
+.player-box { background: var(--paper); border-radius: 20px; overflow: hidden; }
+.player-film { position: relative; aspect-ratio: 9 / 16; max-height: 70vh; margin-inline: auto; background: #000; }
+.player-film video { width: 100%; height: 100%; object-fit: contain; display: block; background: #000; }
+.player-close { position: absolute; right: 10px; top: 10px; width: 40px; height: 40px; border: 0; border-radius: 50%; background: rgba(245,246,241,0.9); color: var(--ink); font-size: 22px; line-height: 1; cursor: pointer; }
+.player-info { padding: 16px 18px 18px; }
+.player-info h3 { margin: 0; font-family: var(--display); font-weight: 500; font-size: 1.35rem; }
+.player-info p { margin: 4px 0 0; font-size: 14.5px; color: var(--muted); }
+.player-info .cta-want { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 14px; padding: 14px; border-radius: 14px; background: var(--sage-deep); color: var(--on-dark); font-weight: 600; text-decoration: none; }
+.player-info .cta-want:hover { background: var(--sage); }
+.player-info .hint { margin-top: 8px; font-size: 13px; text-align: center; }
+
+.toast { position: fixed; left: 50%; bottom: calc(84px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 40; max-width: calc(100vw - 32px); padding: 12px 16px; border-radius: 12px; background: var(--ink); color: var(--on-dark); font-size: 14.5px; text-align: center; }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } html { scroll-behavior: auto; } }
+</style>
 </head>
 <body>
-<p><a href="irina-mihai/">Deschide invitația</a></p>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="#">Invitația <span>de Film</span></a>
+    <a class="bar-link" href="https://ig.me/m/invitatiadefilm" target="_blank" rel="noreferrer">@invitatiadefilm</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Invitații video · Nuntă · Botez · Save the date · Zi de naștere</p>
+      <h1>Nu desen animat. <em>Un film adevărat</em> cu voi doi.</h1>
+      <p class="lede">Invitații cinematice, cu peisaje reale sau cu voi în scenă, făcute după pozele voastre. Primiți clipul pentru WhatsApp și un link cu pagina de confirmare pentru invitați.</p>
+      <div class="hero-ctas">
+        <a class="cta-main" href="#modele">Vezi modelele <span aria-hidden="true">↓</span></a>
+        <a class="cta-ghost js-ig" href="https://ig.me/m/invitatiadefilm" target="_blank" rel="noreferrer" data-msg="Bună! Aș vrea o invitație video.">Scrie-ne pe Instagram</a>
+      </div>
+      <ul class="hero-facts">
+        <li>Clasic în 24–48 de ore</li>
+        <li>Confirmări online incluse</li>
+        <li>Fără cont pentru invitați</li>
+      </ul>
+    </div>
+    <div class="hero-film">
+      <video src="https://d2ol7oe51mr4n9.cloudfront.net/user_3K0DzioG28pZ1nKR3jeeGaVRNyD/d973eb2b-7201-49d8-9fd0-63d461f73fb4.mp4" poster="https://d2ol7oe51mr4n9.cloudfront.net/user_3K0DzioG28pZ1nKR3jeeGaVRNyD/739de6ab-eba9-42d4-be15-8ae7a70e4f0b.jpg" autoplay muted loop playsinline preload="auto" aria-label="Exemplu: invitație de nuntă Personalizat, modelul Grădina"></video>
+    </div>
+  </div>
+</section>
+
+<div class="launch"><div class="wrap"><strong>Ofertă de lansare:</strong> primii 5 clienți primesc 30% reducere în schimbul unei recenzii.</div></div>
+
+<main>
+  <section class="block" id="tipuri">
+    <div class="wrap">
+      <h2 class="h2">Trei feluri de invitație</h2>
+      <p class="sub">La toate scriem textele voastre: nume, dată, oră, locuri și termenul de confirmare.</p>
+      <div class="tiers">
+        <div class="tier">
+          <h3>Clasic</h3>
+          <p>Alegeți un clip din catalog. Mirii apar din spate sau deloc, vedeta e peisajul. Rapid și accesibil.</p>
+          <p class="from">nuntă de la <b>199 lei</b></p>
+        </div>
+        <div class="tier">
+          <h3>Personalizat</h3>
+          <p>O scenă nouă cu voi, creată după pozele voastre. Vedeți întâi o imagine de probă și o aprobați.</p>
+          <p class="from">nuntă de la <b>599 lei</b></p>
+        </div>
+        <div class="tier tier-premium">
+          <h3>Premium · Povestea voastră</h3>
+          <p>3–4 scene, 30–45 de secunde: cum v-ați cunoscut, cererea, nunta. Un mic film despre voi.</p>
+          <p class="from"><b>949 lei</b></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="modele">
+    <div class="wrap">
+      <h2 class="h2">Modele</h2>
+      <p class="sub">Apăsați pe un model ca să-l vedeți. Pe mostre scrie „MOSTRĂ”; clipul vostru vine curat, cu datele voastre.</p>
+      <div id="catalog"></div>
+    </div>
+  </section>
+
+  <section class="block" id="confirmare">
+    <div class="wrap">
+      <h2 class="h2">Pagina de confirmare, inclusă</h2>
+      <div class="rsvp">
+        <div>
+          <p style="margin:0 0 10px">La nuntă și botez primiți, pe lângă clip, un link pe care îl trimiteți invitaților. Pe pagină găsesc:</p>
+          <ul>
+            <li>invitația video și numărătoarea inversă până la eveniment;</li>
+            <li>programul zilei, cu butoane Google Maps și Waze;</li>
+            <li>formularul de confirmare: câți adulți și copii, meniul, alergiile, cazarea;</li>
+          </ul>
+          <p style="margin:10px 0 0">Voi vedeți toate răspunsurile și totalurile pe o pagină cu cod și descărcați lista pentru restaurant.</p>
+        </div>
+        <a class="cta-dark" href="irina-mihai/" target="_blank" rel="noreferrer">Vezi exemplul <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="cum">
+    <div class="wrap">
+      <h2 class="h2">Cum comandați</h2>
+      <ol class="steps">
+        <li><h3>Alegeți modelul</h3><p>Din catalog, sau ne spuneți ideea voastră.</p></li>
+        <li><h3>Ne scrieți pe Instagram</h3><p>Numele, data, ora și locurile. La Personalizat trimiteți și pozele, după ghidul de mai jos.</p></li>
+        <li><h3>Avans și probă</h3><p>Plătiți avansul de 50%. La Personalizat primiți întâi o imagine de probă și o aprobați.</p></li>
+        <li><h3>Primiți invitația</h3><p>Clipul și linkul de confirmare: Clasic în 24–48 de ore, Personalizat în 3–5 zile. Restul plății la livrare.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" id="poze">
+    <div class="wrap">
+      <h2 class="h2">Ce poze ne trimiteți</h2>
+      <p class="sub">Doar pentru Personalizat și Premium. Cu pozele potrivite, scena seamănă cu voi de la prima încercare.</p>
+      <div class="guide">
+        <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3K0DzioG28pZ1nKR3jeeGaVRNyD/6117dd63-8b9d-4210-bd03-17262e758a4f.jpg" alt="Ghid cu exemple: cele 5 poze cerute pentru invitația personalizată" loading="lazy">
+        <div>
+          <ol>
+            <li>Ea, din trei sferturi, privind spre stânga</li>
+            <li>El, din trei sferturi, privind spre dreapta</li>
+            <li>Ea, din față</li>
+            <li>Ea râzând larg (opțional)</li>
+            <li>Amândoi împreună, ea în stânga</li>
+          </ol>
+          <p class="tip">Poze recente, la lumina zilei, fără filtre și fără ochelari de soare. Pozele le folosim doar pentru invitația voastră și le ștergem după livrare.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="preturi">
+    <div class="wrap">
+      <h2 class="h2">Prețuri</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Pachet</th><th>Preț</th><th>Livrare</th><th>Modificări incluse</th></tr></thead>
+          <tbody>
+            <tr><td>Nuntă Clasic<span class="note">clip din catalog + pagina de confirmare</span></td><td class="price">199 lei</td><td>24–48 h</td><td>2 runde de text</td></tr>
+            <tr><td>Nuntă Personalizat<span class="note">scenă nouă cu voi + pagina de confirmare</span></td><td class="price">599 lei</td><td>3–5 zile</td><td>imagine de probă + 2 runde</td></tr>
+            <tr><td>Nuntă Premium<span class="note">povestea voastră, 3–4 scene + pagina de confirmare</span></td><td class="price">949 lei</td><td>7–10 zile</td><td>imagine de probă pe scenă + 3 runde</td></tr>
+            <tr><td>Save the date Clasic<span class="note">clip scurt din catalog</span></td><td class="price">99 lei</td><td>24–48 h</td><td>1 rundă de text</td></tr>
+            <tr><td>Save the date Personalizat<span class="note">scenă scurtă cu voi</span></td><td class="price">229 lei</td><td>3–5 zile</td><td>imagine de probă + 1 rundă</td></tr>
+            <tr><td>Botez Clasic<span class="note">detalii și peisaje + pagina de confirmare</span></td><td class="price">179 lei</td><td>24–48 h</td><td>2 runde de text</td></tr>
+            <tr><td>Botez Personalizat<span class="note">scenă cu părinții + pagina de confirmare</span></td><td class="price">399 lei</td><td>3–5 zile</td><td>imagine de probă + 2 runde</td></tr>
+            <tr><td>Zi de naștere copil<span class="note">clip tematic cu numele și vârsta</span></td><td class="price">99 lei</td><td>24–48 h</td><td>2 runde de text</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="extras"><b>Extra:</b> pagina de confirmare la ziua de naștere +49 lei · livrare în 24 h +100 lei · variantă orizontală pentru proiectat la sală +49 lei · text în două limbi +49 lei. Cine ia save the date primește 15% reducere la invitație.</p>
+    </div>
+  </section>
+
+  <section class="block" id="intrebari">
+    <div class="wrap">
+      <h2 class="h2">Întrebări frecvente</h2>
+      <div class="faq">
+        <details><summary>Cum le trimitem invitaților?</summary><p>Primiți clipul video, pe care îl trimiteți pe WhatsApp sau Facebook, și un link cu pagina de confirmare. Invitații nu au nevoie de niciun cont sau aplicație.</p></details>
+        <details><summary>Cum vă trimitem pozele?</summary><p>Pe Instagram, în conversația cu noi. Uitați-vă întâi la ghidul cu cele 5 poze de mai sus.</p></details>
+        <details><summary>Cum sunt făcute scenele?</summary><p>Scenele sunt create cu inteligență artificială, pornind de la pozele voastre, apoi le montăm noi cu textele și muzica. De aceea arată ca un film adevărat, nu ca un desen animat.</p></details>
+        <details><summary>Putem schimba ceva după ce o vedem?</summary><p>Da. Fiecare pachet are runde de modificări incluse; o rundă înseamnă toate schimbările trimise într-un singur mesaj, în maximum 7 zile de la livrare. Greșelile noastre le corectăm gratuit, oricând.</p></details>
+        <details><summary>Ce muzică are clipul?</summary><p>Muzică instrumentală potrivită cu scena. Dacă vă doriți altceva, spuneți-ne și găsim varianta potrivită.</p></details>
+        <details><summary>Cum plătim?</summary><p>Avans 50% la comandă, restul la livrare.</p></details>
+        <details><summary>Cu cât timp înainte să comandăm?</summary><p>Save the date se trimite de obicei cu 6–12 luni înainte, invitația cu 2–3 luni înainte de eveniment. Comandați cu măcar o săptămână înainte de data la care vreți să o trimiteți.</p></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<section class="final">
+  <div class="wrap">
+    <h2>Hai să facem filmul vostru</h2>
+    <p>Spuneți-ne ce eveniment aveți și ce model v-a plăcut. Vă răspundem cu toate detaliile.</p>
+    <a class="cta-main js-ig" href="https://ig.me/m/invitatiadefilm" target="_blank" rel="noreferrer" data-msg="Bună! Aș vrea o invitație video.">Scrie-ne pe Instagram</a>
+  </div>
+</section>
+<footer><div class="wrap"><span>Invitația de Film</span><span>Instagram: @invitatiadefilm</span></div></footer>
+
+<a class="float js-ig" href="https://ig.me/m/invitatiadefilm" target="_blank" rel="noreferrer" data-msg="Bună! Aș vrea o invitație video.">
+  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+  Scrie-ne
+</a>
+
+<dialog class="player" id="player" aria-labelledby="p-title">
+  <div class="player-box">
+    <div class="player-film">
+      <video id="p-video" playsinline controls preload="none"></video>
+      <button type="button" class="player-close" id="p-close" aria-label="Închide">×</button>
+    </div>
+    <div class="player-info">
+      <h3 id="p-title"></h3>
+      <p id="p-desc"></p>
+      <a class="cta-want js-ig" id="p-want" href="https://ig.me/m/invitatiadefilm" target="_blank" rel="noreferrer">Vreau modelul ăsta</a>
+      <p class="hint">Copiem mesajul pentru voi; îl lipiți în conversația de pe Instagram.</p>
+    </div>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+(function () {
+  var CF = "https://d2ol7oe51mr4n9.cloudfront.net/user_3K0DzioG28pZ1nKR3jeeGaVRNyD/";
+  // i = poziția posterului în imaginea cu toate posterele (6 coloane x 3 rânduri)
+  var CATS = [
+    { id: "nunta", title: "Nuntă", prices: "Clasic <b>199 lei</b> · Personalizat <b>599 lei</b>", note: "Pagina de confirmare inclusă.", items: [
+      { i: 2, n: "Conacul", t: "Clasic", d: "Masa festivă în curtea conacului, la apus", v: "bbd2604a-872c-4b44-b2c8-622373029440" },
+      { i: 3, n: "Delta", t: "Clasic", d: "Mirii pe barcă, printre stuf, în lumina serii", v: "f77a2369-ccfb-41ff-87e1-f55b79c01acc" },
+      { i: 4, n: "Muntele", t: "Clasic", d: "Mirii din spate, deasupra norilor", v: "81f44828-e34b-4ff6-9635-e8e2f38e1706" },
+      { i: 5, n: "Grădina", t: "Personalizat", d: "Voi doi printre bujori, în lumină caldă", v: "1cdf2d09-99bf-4d1d-b09e-a7d269b9640b" },
+      { i: 6, n: "Lavanda", t: "Personalizat", d: "Voi doi într-un câmp de lavandă, la apus", v: "01c77e56-89ee-42ef-b309-f1c392b8ee77" },
+      { i: 7, n: "Terasa", t: "Personalizat", d: "Seară elegantă, cu orașul luminat în spate", v: "25da8349-71f3-4a8a-97d9-7acc168adad8" }
+    ]},
+    { id: "std", title: "Save the date", prices: "Clasic <b>99 lei</b> · Personalizat <b>229 lei</b>", note: "Se trimite cu luni înainte, doar ca invitații să-și noteze data.", items: [
+      { i: 8, n: "Inima de pe plajă", t: "Clasic", d: "Inimă din lumânări pe plajă, cu muntele în zare", v: "ecc47fce-4469-4f0d-b7c1-042c2729c96b" },
+      { i: 9, n: "Plicul", t: "Clasic", d: "Plic sigilat cu ceară, lângă flori uscate", v: "c6de58a8-9cbd-46dd-8eb3-aaec8985b0e3" },
+      { i: 10, n: "Șampania", t: "Clasic", d: "Două pahare pe terasă, cu marea în spate", v: "233628da-44a6-45f7-b978-daaef92fcef5" },
+      { i: 11, n: "Verighetele", t: "Clasic", d: "Verighete pe o carte veche, la lumânare", v: "d771b08c-8814-42cf-be94-df0e505942d7" },
+      { i: 12, n: "Pădurea", t: "Personalizat", d: "Voi doi într-o pădure de toamnă", v: "d22f73be-803a-4c6e-844d-81fc92ad30b5" },
+      { i: 13, n: "Podul", t: "Personalizat", d: "Voi doi pe un pod vechi, la apus", v: "75c83ffe-fb31-401c-8a5f-63a01e451da4" },
+      { i: 14, n: "Stânca", t: "Personalizat", d: "Voi doi pe stânci, deasupra mării", v: "caedb448-6207-4908-bbef-79b686456de8" }
+    ]},
+    { id: "botez", title: "Botez", prices: "Clasic <b>179 lei</b> · Personalizat <b>399 lei</b>", note: "Pagina de confirmare inclusă. La Personalizat apar părinții; bebelușul nu e generat cu fața lui.", items: [
+      { i: 0, n: "Cristelnița", t: "Clasic", d: "Biserica și cristelnița cu flori albe", v: "e1cd6437-3620-436b-9efe-41440838d7dd" },
+      { i: 1, n: "Părinții", t: "Personalizat", d: "Părinții cu bebelușul în brațe", v: "2469d442-5075-4d52-b2f1-0b0224b515a7" }
+    ]},
+    { id: "copii", title: "Zi de naștere copil", prices: "<b>99 lei</b> · pagină de confirmare +49 lei", note: "Clip tematic cu numele și vârsta copilului.", items: [
+      { i: 15, n: "Racheta (Luca)", t: "Clasic", d: "Tort cu planete și o rachetă care decolează", v: "ec950c1e-9e9a-4e5c-8f1d-089c4430aced" },
+      { i: 16, n: "Castelul (Maia)", t: "Clasic", d: "Tort-castel roz, printre baloane", v: "9d41c6ec-40cd-472e-8226-496d8d6ad40d" }
+    ]}
+  ];
+
+  var $ = function (id) { return document.getElementById(id); };
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+
+  // Catalog
+  var root = $("catalog");
+  CATS.forEach(function (c) {
+    var wrap = el("div", "cat"); wrap.id = "cat-" + c.id;
+    var head = el("div", "cat-head");
+    head.appendChild(el("h3", "", c.title));
+    var pr = el("span", "prices"); pr.innerHTML = c.prices; head.appendChild(pr);
+    wrap.appendChild(head);
+    wrap.appendChild(el("p", "cat-note", c.note));
+    var grid = el("div", "grid");
+    c.items.forEach(function (m) {
+      var b = el("button", "model"); b.type = "button";
+      var p = el("span", "poster");
+      p.style.backgroundPosition = ((m.i % 6) * 20) + "% " + (Math.floor(m.i / 6) * 50) + "%";
+      p.appendChild(el("span", "tag " + (m.t === "Clasic" ? "tag-clasic" : "tag-pers"), m.t));
+      p.appendChild(el("span", "play"));
+      b.appendChild(p);
+      b.appendChild(el("span", "model-name", m.n));
+      b.appendChild(el("span", "model-desc", m.d));
+      b.setAttribute("aria-label", "Vezi modelul " + m.n + ", " + c.title + " " + m.t);
+      b.addEventListener("click", function () { openPlayer(c, m); });
+      grid.appendChild(b);
+    });
+    wrap.appendChild(grid);
+    root.appendChild(wrap);
+  });
+
+  // Player
+  var dlg = $("player"), vid = $("p-video");
+  function openPlayer(c, m) {
+    $("p-title").textContent = m.n + " · " + c.title + " " + m.t;
+    $("p-desc").textContent = m.d;
+    $("p-want").setAttribute("data-msg", "Bună! Mă interesează modelul „" + m.n + "” (" + c.title + " " + m.t + ").");
+    vid.src = CF + m.v + ".mp4";
+    if (dlg.showModal) dlg.showModal(); else dlg.setAttribute("open", "");
+    vid.muted = false;
+    var p = vid.play(); if (p && p.catch) p.catch(function () { vid.muted = true; vid.play().catch(function () {}); });
+  }
+  function closePlayer() { vid.pause(); vid.removeAttribute("src"); vid.load(); if (dlg.close) dlg.close(); else dlg.removeAttribute("open"); }
+  $("p-close").addEventListener("click", closePlayer);
+  dlg.addEventListener("click", function (e) { if (e.target === dlg) closePlayer(); });
+  dlg.addEventListener("cancel", function () { vid.pause(); });
+
+  // Butoane Instagram: copiem mesajul, apoi se deschide conversația
+  var toast = $("toast"), tt;
+  function showToast(msg) { toast.textContent = msg; toast.hidden = false; clearTimeout(tt); tt = setTimeout(function () { toast.hidden = true; }, 4000); }
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest ? e.target.closest(".js-ig") : null;
+    if (!a) return;
+    var msg = a.getAttribute("data-msg");
+    if (msg && navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(msg).then(function () { showToast("Mesajul e copiat. Lipiți-l în conversația de pe Instagram."); }).catch(function () {});
+    }
+  });
+})();
+</script>
 </body>
 </html>
